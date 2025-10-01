@@ -13,6 +13,7 @@ import { randomUUID } from "crypto";
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByProviderId(provider: string, providerId: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   
   getConversationsByUserId(userId: string): Promise<Conversation[]>;
@@ -51,6 +52,12 @@ export class MemStorage implements IStorage {
   async getUserByEmail(email: string): Promise<User | undefined> {
     return Array.from(this.users.values()).find(
       (user) => user.email === email,
+    );
+  }
+
+  async getUserByProviderId(provider: string, providerId: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.provider === provider && user.providerId === providerId,
     );
   }
 

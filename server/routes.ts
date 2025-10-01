@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { insertUserSchema, insertConversationSchema, insertMessageSchema } from "@shared/schema";
 import OpenAI from "openai";
+import { setupGoogleAuth } from "./googleAuth";
 
 const JWT_SECRET = process.env.JWT_SECRET || (() => {
   if (process.env.NODE_ENV === "production") {
@@ -38,6 +39,8 @@ function authenticateToken(req: AuthRequest, res: Response, next: NextFunction) 
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  setupGoogleAuth(app);
+
   app.post("/api/auth/register", async (req: Request, res: Response) => {
     try {
       const { email, password, name } = req.body;
