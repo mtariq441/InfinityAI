@@ -181,7 +181,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/chat", authenticateToken, async (req: AuthRequest, res: Response) => {
     try {
-      const { conversationId, message, model = "gpt-5", maxTokens = 8192 } = req.body;
+      const { conversationId, message, model = "gpt-4o", maxTokens = 8192 } = req.body;
 
       if (!conversationId || !message) {
         return res.status(400).json({ error: "conversationId and message are required" });
@@ -235,10 +235,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         content: fullResponse,
       });
 
-      if (messages.length === 0) {
+      if (messages.length === 1) {
         const titlePrompt = `Generate a short 3-5 word title for a conversation that starts with: "${message.substring(0, 100)}"`;
         const titleResponse = await openai.chat.completions.create({
-          model: "gpt-5",
+          model: "gpt-4o-mini",
           messages: [{ role: "user", content: titlePrompt }],
           max_completion_tokens: 20,
         });

@@ -30,7 +30,7 @@ export const messages = pgTable("messages", {
 export const userSettings = pgTable("user_settings", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").notNull().unique().references(() => users.id, { onDelete: "cascade" }),
-  model: text("model").notNull().default("gpt-5"),
+  model: text("model").notNull().default("gpt-4o"),
   maxTokens: integer("max_tokens").notNull().default(8192),
 });
 

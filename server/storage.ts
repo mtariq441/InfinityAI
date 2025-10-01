@@ -146,7 +146,7 @@ export class MemStorage implements IStorage {
     const settings: UserSettings = {
       id,
       userId: insertSettings.userId,
-      model: insertSettings.model ?? "gpt-5",
+      model: insertSettings.model ?? "gpt-4o",
       maxTokens: insertSettings.maxTokens ?? 8192,
     };
     this.userSettings.set(id, settings);

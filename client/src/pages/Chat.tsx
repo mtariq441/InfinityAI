@@ -115,7 +115,7 @@ export default function Chat() {
         body: JSON.stringify({
           conversationId: selectedConversationId,
           message: userMessage,
-          model: settings?.model || "gpt-5",
+          model: settings?.model || "gpt-4o",
           maxTokens: settings?.maxTokens || 8192,
         }),
       });
@@ -234,16 +234,16 @@ export default function Chat() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Model</label>
                   <Select
-                    value={settings?.model || "gpt-5"}
+                    value={settings?.model || "gpt-4o"}
                     onValueChange={(value) => updateSettingsMutation.mutate({ model: value })}
                   >
                     <SelectTrigger data-testid="select-model">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="gpt-5">GPT-5</SelectItem>
-                      <SelectItem value="gpt-5-mini">GPT-5 Mini</SelectItem>
-                      <SelectItem value="gpt-5-nano">GPT-5 Nano</SelectItem>
+                      <SelectItem value="gpt-4o">GPT-4o</SelectItem>
+                      <SelectItem value="gpt-4o-mini">GPT-4o Mini</SelectItem>
+                      <SelectItem value="gpt-3.5-turbo">GPT-3.5 Turbo</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -337,7 +337,7 @@ export default function Chat() {
                 {conversations.find(c => c.id === selectedConversationId)?.title || "AI Chat"}
               </h1>
               <p className="text-xs text-muted-foreground">
-                Powered by {settings?.model || "GPT-5"}
+                Powered by {settings?.model || "GPT-4o"}
               </p>
             </div>
           </div>
