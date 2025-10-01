@@ -3,57 +3,67 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import Home from "@/pages/Home";
-import Features from "@/pages/Features";
-import Pricing from "@/pages/Pricing";
-import About from "@/pages/About";
-import Blog from "@/pages/Blog";
-import Contact from "@/pages/Contact";
+import { AuthProvider, useAuth } from "@/lib/auth";
 import Login from "@/pages/Login";
-import Dashboard from "@/pages/Dashboard";
-import NotFound from "@/pages/not-found";
+import Chat from "@/pages/Chat";
+import { useEffect } from "react";
+
+function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
+  const { isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setLocation("/login");
+    }
+  }, [isAuthenticated, setLocation]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return <Component />;
+}
 
 function AppContent() {
   const [location] = useLocation();
-  const isAuthPage = location === "/login" || location === "/dashboard";
+  const { isAuthenticated } = useAuth();
 
-  if (isAuthPage) {
-    return (
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-      </Switch>
-    );
-  }
+  useEffect(() => {
+    if (location === "/" && isAuthenticated) {
+      window.location.href = "/chat";
+    } else if (location === "/" && !isAuthenticated) {
+      window.location.href = "/login";
+    }
+  }, [location, isAuthenticated]);
 
   return (
-    <>
-      <Navbar />
-      <main className="pt-16 lg:pt-20">
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/features" component={Features} />
-          <Route path="/pricing" component={Pricing} />
-          <Route path="/about" component={About} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/contact" component={Contact} />
-          <Route component={NotFound} />
-        </Switch>
-      </main>
-      <Footer />
-    </>
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/chat">
+        <ProtectedRoute component={Chat} />
+      </Route>
+      <Route path="/">
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-2">AI Chat</h1>
+            <p className="text-muted-foreground">Redirecting...</p>
+          </div>
+        </div>
+      </Route>
+    </Switch>
   );
 }
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AppContent />
-        <Toaster />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <AppContent />
+          <Toaster />
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
