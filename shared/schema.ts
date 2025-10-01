@@ -5,9 +5,12 @@ import { z } from "zod";
 
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  email: text("email").notNull().unique(),
-  password: text("password").notNull(),
+  email: text("email").unique(),
+  password: text("password"),
   name: text("name"),
+  provider: text("provider").notNull().default("local"),
+  providerId: text("provider_id"),
+  profileImage: text("profile_image"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

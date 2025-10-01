@@ -40,17 +40,23 @@ function authenticateToken(req: AuthRequest, res: Response, next: NextFunction) 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/auth/register", async (req: Request, res: Response) => {
     try {
-      const validatedData = insertUserSchema.parse(req.body);
+      const { email, password, name } = req.body;
       
-      const existingUser = await storage.getUserByEmail(validatedData.email);
+      if (!email || !password) {
+        return res.status(400).json({ error: "Email and password are required" });
+      }
+      
+      const existingUser = await storage.getUserByEmail(email);
       if (existingUser) {
         return res.status(400).json({ error: "Email already exists" });
       }
 
-      const hashedPassword = await bcrypt.hash(validatedData.password, SALT_ROUNDS);
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
       const user = await storage.createUser({
-        ...validatedData,
+        email,
         password: hashedPassword,
+        name: name || null,
+        provider: "local",
       });
 
       await storage.createUserSettings({ userId: user.id });
@@ -81,6 +87,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const user = await storage.getUserByEmail(email);
       if (!user) {
         return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      if (user.provider !== "local" || !user.password) {
+        return res.status(401).json({ error: "Please use Google login for this account" });
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
