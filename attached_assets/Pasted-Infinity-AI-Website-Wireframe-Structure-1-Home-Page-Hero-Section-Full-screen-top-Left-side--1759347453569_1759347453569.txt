@@ -1,0 +1,117 @@
+Infinity AI Website Wireframe Structure
+1. Home Page
+🔹 Hero Section (Full-screen top)
+
+Left side → Big headline: “Your AI Business Co-Pilot”
+
+Subheadline: “Plan, launch, and grow your business with AI.”
+
+Buttons: [Start Free] [See Demo]
+
+Right side → Illustration / 3D AI assistant / Laptop mockup
+
+🔹 Features Snapshot (3–4 columns)
+
+Icon + Title + Short Text
+
+Business Plan Generator
+
+Marketing & SEO Assistant
+
+Daily Dashboard
+
+Automation Integrations
+
+🔹 How It Works (3 Steps)
+
+Horizontal step layout with icons:
+
+Ask (type your request)
+
+Review (AI prepares plan/content)
+
+Launch (publish/automate)
+
+🔹 Social Proof
+
+Client logos or integration logos (Shopify, Webflow, Google Ads).
+
+Testimonials (cards with profile pic, name, short text).
+
+🔹 Final CTA
+
+Big centered headline: “Start growing with AI today”
+
+Buttons: [Get Started Free] [Explore Features]
+
+2. Features Page
+
+Hero Banner: “All-in-One AI Business Assistant”
+
+Sections (cards or rows):
+
+📝 Business Plan AI → generate full plans.
+
+📈 Marketing Assistant → SEO, Ads, content.
+
+✅ Daily Dashboard → AI-generated action list.
+
+💾 Memory → AI remembers your business.
+
+🔗 Integrations → Gmail, Shopify, Webflow.
+
+End with CTA: “Upgrade to Pro → $15/month.”
+
+3. Pricing Page
+
+Hero Title: “Simple pricing, built for everyone.”
+
+Pricing Table (3 columns)
+
+Free → 10 queries/day
+
+Pro ($15/mo) → Unlimited + memory + SEO
+
+Enterprise ($99–299/mo) → Team AI + custom training + API
+
+Toggle: Monthly / Yearly
+
+FAQ section
+
+CTA: “Start Free”
+
+4. About Page
+
+Mission Statement: “We’re building the future of business with AI.”
+
+Story Section: Why Infinity AI exists.
+
+Team Section (cards with photos).
+
+5. Blog / Resources
+
+Grid of blog cards (title, image, excerpt).
+
+Sidebar filter (Topics: AI, SEO, Startups, Automation).
+
+6. Contact Page
+
+Contact form (Name, Email, Message).
+
+Business email + social icons.
+
+7. Login / Dashboard (App)
+
+Login / Signup Form (minimal clean design).
+
+Dashboard Layout:
+
+Left sidebar → Navigation: Chat, Saved Projects, Tasks, Integrations, Billing.
+
+Main area →
+
+AI Chat console (like ChatGPT interface).
+
+“Saved Plans” list.
+
+“Daily Task Feed.”
